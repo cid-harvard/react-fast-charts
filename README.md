@@ -1,4 +1,4 @@
-# react-d3-fast-charts
+# react-fast-charts
 
 > Quickly create a variety of data visualizations in React using D3.
 
@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save react-d3-fast-charts
+npm install --save react-fast-charts
 ```
 
 ## Usage
