@@ -34,7 +34,17 @@ import {
   baseColor,
   secondaryFont,
   tertiaryColor,
+  defaultPaletteColors,
+  defaultDivergentColors,
+  defaultCoolChloropleth,
+  defaultHotChloropleth,
+  formatNumber,
+  adaptLabelFontSize,
 } from './dataViz/Utils';
+import ColorScaleLegend from './dataViz/ColorScaleLegend';
+import HorizontalLegend from './dataViz/HorizontalLegend';
+import HowToReadDots from './dataViz/HowToReadDots';
+import Legend from './dataViz/Legend';
 
 const Root = styled.div`
   width: 100%;
@@ -496,6 +506,16 @@ export {
   StackChartConfig,
   RootDatum,
   LeafDatum,
+  defaultPaletteColors,
+  defaultDivergentColors,
+  defaultCoolChloropleth,
+  defaultHotChloropleth,
+  formatNumber,
+  adaptLabelFontSize,
+  ColorScaleLegend,
+  HorizontalLegend,
+  HowToReadDots,
+  Legend,
 }
 export default DataViz;
 
