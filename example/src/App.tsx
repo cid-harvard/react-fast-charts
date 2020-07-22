@@ -1,10 +1,16 @@
 import React from 'react'
+import GlobalStyles from './styling/GlobalStyles';
+import { Root } from './styling/Grid';
 
-import { ExampleComponent } from 'react-d3-fast-charts'
-import 'react-d3-fast-charts/dist/index.css'
+import LineChart from './pages/LineChart';
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return (
+    <Root>
+      <GlobalStyles />
+      <LineChart />
+    </Root>
+  )
 }
 
 export default App

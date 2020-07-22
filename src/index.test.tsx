@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import DataViz from '.'
 
-describe('ExampleComponent', () => {
+describe('DataViz', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(DataViz).toBeTruthy()
   })
 })
