@@ -23,7 +23,7 @@ npm install --save react-fast-charts
     - [VizType.StackChart](#viztypestackchart)
     - [VizType.ClusterChart](#viztypeclusterchart)
     - [VizType.BoxAndWhiskersChart](#viztypeboxandwhiskerschart)
-  - [Legends and Scales]
+  - [Legends and Scales](#legendsandscale)
     - [ColorScaleLegend](#colorscalelegend)
     - [HorizontalLegend](#horizontallegend)
     - [HowToReadDots](#howtoreaddots)
