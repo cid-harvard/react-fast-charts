@@ -23,7 +23,7 @@ const ListItem = styled.li`
 export default () => {
   return (
     <Content>
-      <SectionHeader>Examples of react-d3-fast-charts</SectionHeader>
+      <SectionHeader>Examples of react-fast-charts</SectionHeader>
       <List>
         <ListItem><Link to={'/line-chart'}>Line Chart</Link></ListItem>
       </List>

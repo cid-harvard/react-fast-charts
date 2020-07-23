@@ -10,7 +10,7 @@ import DataViz, {
   LineChartDatum,
   LabelPosition,
   LabelAnchor,
-} from 'react-d3-fast-charts';
+} from 'react-fast-charts';
 
 const data: LineChartDatum[] = [
   {

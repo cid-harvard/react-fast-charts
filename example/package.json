@@ -1,5 +1,5 @@
 {
-  "name": "react-d3-fast-charts-example",
+  "name": "react-fast-charts-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -20,7 +20,7 @@
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.5",
     "react": "file:../node_modules/react",
-    "react-d3-fast-charts": "file:..",
+    "react-fast-charts": "file:..",
     "react-dom": "file:../node_modules/react-dom",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

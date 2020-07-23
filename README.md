@@ -1,6 +1,6 @@
 # react-fast-charts
 
-> Quickly create a variety of data visualizations in React using D3.
+> react-fast-charts utilizes the power of D3 to quickly create powerful, customizable charts in React. It is an opinionated library that was built for the [Harvard Growth Lab Digital](https://growthlab.app/) in order to build reusable data visualizations across a broad spectrum of use cases.
 
 [![NPM](https://img.shields.io/npm/v/react-fast-charts.svg)](https://www.npmjs.com/package/react-fast-charts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -12,215 +12,346 @@ npm install --save react-fast-charts
 
 ## Usage
 
-  - [DataViz](#datavizcomponent)
-  - [LegendList](#legendlistcomponent)
-  - [HowToReadDots](#howtoreaddotscomponent)
-  - [ColorScaleLegend](#colorlegendcomponent)
+  - [Data Visualizations](#datavizcomponent)
+    - [VizType.ScatterPlot](#viztypescatterplot)
+    - [VizType.BarChart](#viztypebarchart)
+    - [VizType.ClusterBarChart](#viztypeclusterbarchart)
+    - [VizType.RadarChart](#viztyperadarchart)
+    - [VizType.GeoMap](#viztypegeomap)
+    - [VizType.LineChart](#viztypelinechart)
+    - [VizType.TreeMap](#viztypetreemap)
+    - [VizType.StackChart](#viztypestackchart)
+    - [VizType.ClusterChart](#viztypeclusterchart)
+    - [VizType.BoxAndWhiskersChart](#viztypeboxandwhiskerschart)
+  - [Legends and Scales]
+    - [ColorScaleLegend](#colorscalelegend)
+    - [HorizontalLegend](#horizontallegend)
+    - [HowToReadDots](#howtoreaddots)
+    - [Legend](#legend)
 
 
 <a name="datavizcomponent"/>
 
-#### DataViz
+### Data Visualizations
 
-The data viz component, located at `src/components/dataViz` is the catch-all for any data visualizations. Below are the different props the DataViz component can take in.
-
-- **id**: string
-
-   A unique id for the visualization. Make sure that this is unique not only for this page, but across all pages as it will be used for Google Analytics Event tracking. Consider prefixing all your ids with a unique, page specific identifier.
-
-- **jsonToDownload** *(optional)*: object[]
-
-   An array of objects. Each object in the array should be the same shape. If this is provided it will show the "Download Data" button under the visualization and allow the user to download the data in CSV format.
-
-- **enablePNGDownload** *(optional)*: boolean
-  
-   Set this to `true` to enable the "Download PNG" button and functionality.
-
-- **enableSVGDownload** *(optional)*: boolean
-
-   Set this to `true` to enable the "Download SVG" button and functionality.
-
-- **chartTitle** *(optional)*: string
-
-   The optional chart title is used only if one of the above download features is enabled. The chart title replaces the generic text used for the file name if the user downloads an image or csv.
-
-- **vizType**: VizType
-
-   VizType is an enum also exported from `src/components/dataViz`. Depending on the type, there are a number of additional props required, shown below. It can be of the following types -
-
-   ```tsx
-   enum VizType {
-      ScatterPlot = 'ScatterPlot',
-      BarChart = 'BarChart',
-      ClusterBarChart = 'ClusterBarChart',
-      RadarChart = 'RadarChart',
-      GeoMap = 'GeoMap',
-    }
-   ```
-   - **VizType.ScatterPlot**
-
-      **data**: ScatterPlotDatum[];
-
-         ScatterPlotDatum takes the following values:
-
-         - label: string;
-         - x: number;
-         - y: number;
-         - fill *(optional)*: string;
-         - radius*(optional)*: number;
-         - tooltipContent *(optional)*: string;
-         - tooltipContentOnly *(optional)*: boolean;
-         - highlighted *(optional)*: boolean;
-
-      **axisLabels** *(optional)*: {**left** *(optional)*: string, **bottom** *(optional)*: string};
-
-      **axisMinMax** *(optional)*: {
-
-         **minX** *(optional)*: number,
-
-         **maxX** *(optional)*: number,
-
-         **minY** *(optional)*: number,
-
-         **maxY** *(optional)*: number,
-
-      };
-
-      **showAverageLines** *(optional)*: boolean;
-
-      **averageLineText** *(optional)*: {**left** *(optional)*: string, **bottom** *(optional)*: string};
-
-
-   - **VizType.BarChart**
-
-      **data**: Array<BarChartDatum[]>;
-
-         BarChartDatum takes the following values:
-
-         - x: string;
-         - y: number;
-         - fill *(optional)*: string;
-         - stroke *(optional)*: string;
-         - tooltipContent *(optional)*: string;
-         - tooltipContentOnly *(optional)*: boolean;
-
-         The data it takes is an array of BarChartDatum arrays. Each array will render ontop of the previous one.
-
-      **axisLabels** *(optional)*: {**left** *(optional)*: string, **bottom** *(optional)*: string};
-
-      **quadrantLabels** *(optional)*: {**I** *(optional)*: string, **II** *(optional)*: string, **III** *(optional)*: string, **IV** *(optional)*: string};
-
-         Use the new line escape character, `\n`, to indicate when the label text should break to a new line.
-
-   - **VizType.RadarChart**
-
-      **data**: RadarChartDatum[];
-
-         RadarChartDatum takes the following values:
-
-         - label: string;
-         - value: number;
-
-         To include multi-line labels, include a newline character, \n, to indicate a new line.
-
-      **maxValue**: number;
-
-         Radar charts require a max value at which to compare each individual datums values against.
-
-      **axisLabels** *(optional)*: {**left** *(optional)*: string, **bottom** *(optional)*: string};
-
-         Use the new line escape character, `\n`, to indicate when the label text should break to a new line.
-
-   - **VizType.GeoMap**
-
-      **data**: ExtendedFeature<any, GeoJsonCustomProperties>;
-
-         ExtendedFeature is a standard GeoJson object but it requires the following values to be appended within the `.features` data:
-
-         - percent: number; *(Number between 0 and 100)*
-         - tooltipContent *(optional)*: string;
-
-      **minColor**: string;
-
-      **maxColor**: string;
-
-
-   - **VizType.ClusterBarChart**
-
-      **data**: ClusterBarChartDatum[];
-
-         ClusterBarChartDatum takes the following values:
-
-         - groupName: string;
-         - x: string;
-         - y: number;
-         - fill?: string;
-         - tooltipContent?: string;
-         - tooltipContentOnly *(optional)*: boolean;
-
-         Each x value will create a cluster of every groupName that has a matching x value.
-
-      **axisLabels** *(optional)*: {**left** *(optional)*: string, **bottom** *(optional)*: string};
-
-Example of the DataViz component -
+The primary component exported is the DataViz component. It is a single component that takes a number of configurable props to create any of the visualizations supported in this library. All DataViz components takes in a 2 required props and a handful of optional props. Additionally, depending on the `vizType` specified, a number of other optional and required props will be taken.
 
 ```tsx
-<DataViz
-  id={'time-is-money-scatterplot'}
-  vizType={VizType.ScatterPlot}
-  data={scatterplotData}
-  axisLabels={{bottom: 'Time', left: 'Dollars'}}
-  enablePNGDownload={true}
-  enableSVGDownload={true}
-  chartTitle={'Time is Money'}
-  jsonToDownload={rawData}
-/>
+import DataViz, {VizType} from 'react-fast-charts';
+
+...
+
+const App = () => {
+  return (
+    <DataViz
+      id={'example-data-viz'}
+      vizType={VizType.LineChart}
+      data={data}
+    />
+  );
+};
+
+```
+___
+
+#### Required base properties:
+
+- **id**: `string` A unique id for the visualization.
+- **vizType**: `VizType | string` The string name for the type of visualization being rendered. Can also export the `VizType` enum from the module from proper type restrictions of available visualization types
+
+```tsx
+enum VizType {
+  ScatterPlot = 'ScatterPlot',
+  BarChart = 'BarChart',
+  ClusterBarChart = 'ClusterBarChart',
+  RadarChart = 'RadarChart',
+  GeoMap = 'GeoMap',
+  LineChart = 'LineChart',
+  TreeMap = 'TreeMap',
+  StackChart = 'StackChart',
+  ClusterChart = 'ClusterChart',
+  BoxAndWhiskersChart = 'BoxAndWhiskersChart',
+  Error = 'Error',
+}
 ```
 
-<a name="legendlistcomponent"/>
+#### Optional base properties:
 
-#### LegendList
+- **jsonToDownload** *(optional)*: `object[]` Displays 'Download Data' button under the visualization and allows the user to download the given data as a CSV
+- **enablePNGDownload** *(optional)*: `boolean` Displays 'Download PNG' button under the visualization and allows the user to download the given visualization as a PNG
+- **enableSVGDownload** *(optional)*: `boolean` Displays 'Download SVG' button under the visualization and allows the user to download the given visualization as a SVG 
+- **chartTitle** *(optional)*: `string` The optional chart title is used only if one of the above download features is enabled. The chart title replaces the generic text used for the file name if the user downloads an image or csv.
+- **chartCaption** *(optional)*: `string` Places a caption under the chart
+- **rootStyles** *(optional)*: `React.CSSProperties` Define any custom style overrides for the root containing div of the visualization
+- **height** *(optional)*: `number | string` Define an optional height to override the default sizing of the chart *(default: 450px)*
+- **labelFont** *(optional)*: `string` Define an optional font for the labels on the chart
+- **triggerGoogleAnalyticsEvent** *(optional)*: `(category: string, action: string, label (optional): string, value (optional): number) => void` Optionally trigger a GA Event every time a user clicks one of the optional download data/image buttons
 
-The Legend component, located at `src/components/dataViz/Legend` is for displaying a basic color block based legend. The Legend component only takes a single prop -
+___
 
-- **legendList**: LegendDatum[]
+<a name="viztypescatterplot"/>
 
-   Each LegendDatum will be rendered as a separate block. It has the following properties -
+#### VizType.ScatterPlot
 
-   - **label**: string;
-   - **fill**: string | undefined;
-   - **stroke**: string | undefined;
+- **data**: `ScatterPlotDatum[]`
+    - **label**: `string`
+    - **x**: `number`
+    - **y**: `number`
+    - **fill** *(optional)*: `string`
+    - **radius** *(optional)*: `number`
+    - **tooltipContent** *(optional)*: `string`
+    - **tooltipContentOnly** *(optional)*: `boolean`
+    - **onClick** *(optional)*: `() => void`
+    - **highlighted** *(optional)*: `boolean`
+- **axisLabels** *(optional)*: `object`
+    - **left** *(optional)*: `string`
+    - **bottom** *(optional)*: `string`
+- **axisMinMax** *(optional)*: `object`
+    - **minX** *(optional)*: `number`
+    - **maxX** *(optional)*: `number`
+    - **minY** *(optional)*: `number`
+    - **maxY** *(optional)*: `number`
+- **showAverageLines** *(optional)*: `boolean`
+- **averageLineText** *(optional)*: `object`
+    - **left** *(optional)*: `string`
+    - **bottom** *(optional)*: `string`
+- **quadrantLabels** *(optional)*: `object`
+    - **I** *(optional)*: `string`
+    - **II** *(optional)*: `string`
+    - **III** *(optional)*: `string`
+    - **IV** *(optional)*: `string`
 
-<a name="howtoreaddotscomponent"/>
+<a name="viztypebarchart"/>
 
-#### HowToReadDots
+#### VizType.BarChart
 
-The HowToReadDots component, located at `src/components/dataViz/HowToReadDots` is for displaying a basic color circle based legend. The HowToReadDots component takes two props -
+- **data**: `BarChartDatum[][]`
+    - **x**: `string`
+    - **y**: `number`
+    - **fill** *(optional)*: `string`
+    - **stroke** *(optional)*: `string`
+    - **tooltipContent** *(optional)*: `string`
+    - **tooltipContentOnly** *(optional)*: `boolean`
+    - **onClick** *(optional)*: `() => void`
+- **axisLabels** *(optional)*: `object`
+    - **left** *(optional)*: `string`
+    - **bottom** *(optional)*: `string`
+- **axisMinMax** *(optional)*: `object`
+    - **minY** *(optional)*: `number`
+    - **maxY** *(optional)*: `number`
+- **hideAxis** *(optional)*: `object`
+    - **left** *(optional)*: `boolean`
+    - **bottom** *(optional)*: `boolean`
+- **averageLines** *(optional)*: `object[]`
+    - **value**: `number`
+    - **label** *(optional)*: `string`
+    - **labelPlacement** *(optional)*: `LabelPlacement` enum can be exported from the module. Values are `left` or `right`
+    - **strokeWidth** *(optional)*: `number`
+    - **strokeDasharray** *(optional)*: `number`
+    - **strokeColor** *(optional)*: `string`
 
-- **items**: LegendItem[]
+<a name="viztypeclusterbarchart"/>
 
-   Each LegendItem will be rendered as a separate dot. It has the following properties -
+#### VizType.ClusterBarChart
 
-   - **label**: string;
-   - **color**: string;
+- **data**: `ClusterBarChartDatum[]`
+    - **groupName**: `string`
+    - **x**: `string`
+    - **y**: `number`
+    - **fill** *(optional)*: `string`
+    - **tooltipContent** *(optional)*: `string`
+    - **tooltipContentOnly** *(optional)*: `boolean`
+    - **onClick** *(optional)*: `() => void`
+- **axisLabels** *(optional)*: `object`
+    - **left** *(optional)*: `string`
+    - **bottom** *(optional)*: `string`
 
-- **highlighted** *(Optional)*: LegendItem
+<a name="viztyperadarchart"/>
 
-   Optionally add a highlighted value to distinguish it from the other values.
+#### VizType.RadarChart
 
-<a name="colorlegendcomponent"/>
+- **data**: `RadarChartDatum[][]`
+- **color**: `object`
+    - **start**: `string`
+    - **end**: `string`
+- **maxValue**: `number`
+
+<a name="viztypegeomap"/>
+
+#### VizType.GeoMap
+
+- **data**: `ExtendedFeature<any, GeoJsonCustomProperties>`: This is a standard GeoJson object but the `properties` of each feature should include the following props:
+    - **percent**: `number`
+    - **tooltipContent** *(optional)*: `string`
+- **minColor**: `string`
+- **maxColor**: `string`
+
+<a name="viztypelinechart"/>
+
+#### VizType.LineChart
+
+- **data**: `LineChartDatum[]`
+    - **coords**: `Coords[]` each `Coord` is an object of `{x: number; y: number}`
+    - **animationDuration** *(optional)*: `number`
+    - **animationDirection** *(optional)*: `AnimationDirection` enum can be exported from the module. Values are `forward` or `backward`
+    - **animationStartIndex** *(optional)*: `number` the index corresponding to the `coord` at which to start the animation
+    - **label** *(optional)*: `string`
+    - **labelColor** *(optional)*: `string`
+    - **showLabelLine** *(optional)*: `boolean`
+    - **labelPosition** *(optional)*: `LabelPosition` enum can be exported from the module. Values are `top`, `center` or `bottom`
+    - **labelAnchor** *(optional)*: `LabelAnchor` enum can be exported from the module. Values are `start`, `middle` or `end`
+    - **labelDataIndex** *(optional)*: `number` the index corresponding to the `coord` at which to place the label
+    - **color** *(optional)*: `string`
+    - **width** *(optional)*: `number`
+    - **tooltipContent**?: `string`
+- **axisLabels** *(optional)*: `object`
+    - **left** *(optional)*: `string`
+    - **bottom** *(optional)*: `string`
+- **axisMinMax** *(optional)*: `object`
+    - **minX** *(optional)*: `number`
+    - **maxX** *(optional)*: `number`
+    - **minY** *(optional)*: `number`
+    - **maxY** *(optional)*: `number`
+- **showGridLines** *(optional)*: `object`
+    - **xAxis** *(optional)*: `boolean`
+    - **yAxis** *(optional)*: `boolean`
+- **formatAxis** *(optional)*: `object`
+    - **x** *(optional)*: `(n: number) => string`
+    - **y** *(optional)*: `(n: number) => string`
+- **tickCount** *(optional)*: `object`
+    - **x** *(optional)*: `number`
+    - **y** *(optional)*: `number`
+- **animateAxis** *(optional)*: `object`
+    - **animationDuration**: `number`
+    - **startMinX**: `number`
+    - **startMaxX**: `number`
+    - **startMinY**: `number`
+    - **startMaxY**: `number`
+
+<a name="viztypetreemap"/>
+
+#### VizType.TreeMap
+
+- **data**: `RootDatum[]`
+    - **id**: `string`
+    - **label**: `string`
+    - **fill** *(optional)*: `string`
+    - **children**: `(LeafDatum | RootDatum)[]` array of `RootDatum` or `LeafDatum` elements, where a `LeafDatum` looks like:
+        - **id**: `string`
+        - **label**: `string`
+        - **tooltipContent**: `string`
+        - **size**: `number`
+
+<a name="viztypestackchart"/>
+
+#### VizType.StackChart
+
+- **config**: `StackChartConfig`
+    - **primaryKey**: `string` the name of the key to use for plotting the chart on the X axis
+    - **groups**: `object[]`
+        - **key**: `string`
+        - **label**: `string`
+        - **fill** *(optional)*: `string`
+- **data**: `StackChartDatum[]`
+    - **[key: string]**: `number` the data can be any consistent combination of key/value pairs. One of the keys must match the primary key, and the other keys must match the key of a group defined in the `config` prop
+- **enableBrushZoom** *(optional)*: `boolean` if true, users can click and drag to zoom into areas of the stack chart. Note that this will also disable tooltips.
+
+<a name="viztypeclusterchart"/>
+
+#### VizType.ClusterChart
+
+- **data**: `ClusterChartDatum[]`
+    - **name**: `string`
+    - **label**: `string`
+    - **value**: `number`
+    - **fill**: `string`
+    - **tooltipContent** *(optional)*: `string`
+- **hideLabels** *(optional)*: `boolean`
+- **circleSpacing** *(optional)*: `number`
+- **max** *(optional)*: `number`
+
+<a name="viztypeboxandwhiskerschart"/>
+
+#### VizType.BoxAndWhiskersChart
+
+- **data**: `BoxAndWhiskersChartDatum[]`
+    - **category**: `string`
+    - **label**: `string`
+    - **value**: `number`
+    - **plotPoint**: `boolean`
+    - **primaryPoint**: `boolean`
+    - **fill** *(optional)*: `string`
+
+
+
+<a name="legendsandscale"/>
+
+### Legends and Scales
+
+react-fast-charts also exports a number of lightweight legend and scale components to quickly add context to a chart.
+
+```tsx
+import {Legend} from 'react-fast-charts';
+
+...
+
+const App = () => {
+  return (
+      <Legend
+        legendList={[
+          {label: 'Imports', fill: 'red', stroke: undefined},
+          {label: 'Exports', fill: 'blue', stroke: undefined},
+        ]}
+      />
+  );
+};
+
+```
+
+<a name="colorscalelegend"/>
 
 #### ColorScaleLegend
 
-The ColorScaleLegend component, located at `src/components/dataViz/ColorScaleLegend` is for displaying a color range scale. The ColorScaleLegend component takes the following props -
+The ColorScaleLegend will render a gradient legend. It must receive *either* a `maxColor` and `minColor` *or* a `gradientString`.
 
-- **maxColor**: string;
-- **minColor**: string;
-- **title**: string;
-- **maxLabel**: string | number;
-- **minLabel**: string | number;
+- **title**: `string`
+- **maxLabel**: `string | number`
+- **minLabel**: `string | number`
+- **rootStyles** *(optional)*: `React.CSSProperties` define any custom style overrides for the root containing div
+- **maxColor** *(optional)*: `string` maximum color for a linear scale
+- **minColor** *(optional)*: `string` minimum color for a linear scale
+- **gradientString** *(optional)*: `string` custom gradient css string
 
+<a name="horizontallegend"/>
+
+#### HorizontalLegend
+
+- **legendList**: `LegendDatum[]`
+    - **label**: `string`
+    - **fill**: `string | undefined`
+    - **stroke**: `string | undefined`
+- **rootStyles** *(optional)*: `React.CSSProperties` define any custom style overrides for the root containing div
+- **itemStyles** *(optional)*: `React.CSSProperties` define any custom style overrides for the containing div of each item
+- **labelStyles** *(optional)*: `React.CSSProperties` define any custom style overrides for each label
+
+<a name="howtoreaddots"/>
+
+#### HowToReadDots
+
+- **items**: `LegendItem[]`
+    - **color**: `string`
+    - **label**: `string`
+- **highlighted** *(optional)*: `LegendItem` optionally add a highlighted value to distinguish it from the other values.
+
+<a name="legend"/>
+
+#### Legend
+
+- **legendList**: `LegendDatum[]`
+    - **label** `string`
+    - **fill** `string | undefined`
+    - **stroke** `string | undefined`
 
 ## License
 
-MIT © [wsoeltz](https://github.com/wsoeltz)
+MIT © [The President and Fellows of Harvard College](https://www.harvard.edu/)
