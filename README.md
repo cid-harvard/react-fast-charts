@@ -23,6 +23,7 @@ npm install --save react-fast-charts
     - [VizType.StackChart](#viztypestackchart)
     - [VizType.ClusterChart](#viztypeclusterchart)
     - [VizType.BoxAndWhiskersChart](#viztypeboxandwhiskerschart)
+    - [VizType.Error](#errorviz)
   - [Legends and Scales](#legendsandscale)
     - [ColorScaleLegend](#colorscalelegend)
     - [HorizontalLegend](#horizontallegend)
@@ -282,7 +283,13 @@ ___
     - **primaryPoint**: `boolean`
     - **fill** *(optional)*: `string`
 
+<a name="errorviz"/>
 
+#### VizType.Error
+
+The error VizType is useful for quickly setting an error message in place of a visualization if needed.
+
+- **message**: `string`
 
 <a name="legendsandscale"/>
 
