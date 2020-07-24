@@ -12,7 +12,8 @@ const List = styled.ul`
   font-family: ${secondaryFont};
 `;
 const ListItem = styled.li`
-  font-size: 1.25rem;
+  font-size: 1rem;
+  margin-bottom: 0.85rem;
 
   a {
     color: rgb(78, 140, 141); 
@@ -25,6 +26,7 @@ export default () => {
   return (
     <Content>
       <SectionHeader>Examples of react-fast-charts</SectionHeader>
+      <h3>Data Visualizations</h3>
       <List>
         <ListItem><Link to={'/' + VizType.ScatterPlot}>VizType.ScatterPlot</Link></ListItem>
         <ListItem><Link to={'/' + VizType.BarChart}>VizType.BarChart</Link></ListItem>
@@ -37,6 +39,13 @@ export default () => {
         <ListItem><Link to={'/' + VizType.ClusterChart}>VizType.ClusterChart</Link></ListItem>
         <ListItem><Link to={'/' + VizType.BoxAndWhiskersChart}>VizType.BoxAndWhiskersChart</Link></ListItem>
         <ListItem><Link to={'/' + VizType.Error}>VizType.ErrorViz</Link></ListItem>
+      </List>
+      <h3>Legends and Scales</h3>
+      <List>
+        <ListItem><Link to={'/ColorScaleLegend'}>Color Scale Legend</Link></ListItem>
+        <ListItem><Link to={'/HorizontalLegend'}>Horizontal Legend</Link></ListItem>
+        <ListItem><Link to={'/HowToReadDots'}>How To Read Dots</Link></ListItem>
+        <ListItem><Link to={'/Legend'}>Legend</Link></ListItem>
       </List>
     </Content>
   );

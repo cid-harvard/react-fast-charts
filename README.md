@@ -4,6 +4,8 @@
 
 [![NPM](https://img.shields.io/npm/v/react-fast-charts.svg)](https://www.npmjs.com/package/react-fast-charts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+### [View live examples ↗](https://cid-harvard.github.io/react-fast-charts/#/)
+
 ## Install
 
 ```bash
@@ -11,6 +13,7 @@ npm install --save react-fast-charts
 ```
 
 ## Usage
+
 
   - [Data Visualizations](#datavizcomponent)
     - [VizType.ScatterPlot](#viztypescatterplot)
@@ -94,6 +97,8 @@ ___
 
 #### VizType.ScatterPlot
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/ScatterPlot)
+
 - **data**: `ScatterPlotDatum[]`
     - **label**: `string`
     - **x**: `number`
@@ -126,6 +131,8 @@ ___
 
 #### VizType.BarChart
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/BarChart)
+
 - **data**: `BarChartDatum[][]`
     - **x**: `string`
     - **y**: `number`
@@ -155,6 +162,8 @@ ___
 
 #### VizType.ClusterBarChart
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/ClusterBarChart)
+
 - **data**: `ClusterBarChartDatum[]`
     - **groupName**: `string`
     - **x**: `string`
@@ -171,6 +180,8 @@ ___
 
 #### VizType.RadarChart
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/RadarChart)
+
 - **data**: `RadarChartDatum[][]`
 - **color**: `object`
     - **start**: `string`
@@ -181,6 +192,8 @@ ___
 
 #### VizType.GeoMap
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/GeoMap)
+
 - **data**: `ExtendedFeature<any, GeoJsonCustomProperties>`: This is a standard GeoJson object but the `properties` of each feature should include the following props:
     - **percent**: `number`
     - **tooltipContent** *(optional)*: `string`
@@ -190,6 +203,8 @@ ___
 <a name="viztypelinechart"/>
 
 #### VizType.LineChart
+
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/LineChart)
 
 - **data**: `LineChartDatum[]`
     - **coords**: `Coords[]` each `Coord` is an object of `{x: number; y: number}`
@@ -233,6 +248,8 @@ ___
 
 #### VizType.TreeMap
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/TreeMap)
+
 - **data**: `RootDatum[]`
     - **id**: `string`
     - **label**: `string`
@@ -246,6 +263,8 @@ ___
 <a name="viztypestackchart"/>
 
 #### VizType.StackChart
+
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/StackChart)
 
 - **config**: `StackChartConfig`
     - **primaryKey**: `string` the name of the key to use for plotting the chart on the X axis
@@ -261,6 +280,8 @@ ___
 
 #### VizType.ClusterChart
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/ClusterChart)
+
 - **data**: `ClusterChartDatum[]`
     - **name**: `string`
     - **label**: `string`
@@ -275,6 +296,8 @@ ___
 
 #### VizType.BoxAndWhiskersChart
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/BoxAndWhiskersChart)
+
 - **data**: `BoxAndWhiskersChartDatum[]`
     - **category**: `string`
     - **label**: `string`
@@ -286,6 +309,8 @@ ___
 <a name="errorviz"/>
 
 #### VizType.Error
+
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/Error)
 
 The error VizType is useful for quickly setting an error message in place of a visualization if needed.
 
@@ -319,6 +344,8 @@ const App = () => {
 
 #### ColorScaleLegend
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/ColorScaleLegend)
+
 The ColorScaleLegend will render a gradient legend. It must receive *either* a `maxColor` and `minColor` *or* a `gradientString`.
 
 - **title**: `string`
@@ -333,6 +360,8 @@ The ColorScaleLegend will render a gradient legend. It must receive *either* a `
 
 #### HorizontalLegend
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/HorizontalLegend)
+
 - **legendList**: `LegendDatum[]`
     - **label**: `string`
     - **fill**: `string | undefined`
@@ -345,6 +374,8 @@ The ColorScaleLegend will render a gradient legend. It must receive *either* a `
 
 #### HowToReadDots
 
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/HowToReadDots)
+
 - **items**: `LegendItem[]`
     - **color**: `string`
     - **label**: `string`
@@ -353,6 +384,8 @@ The ColorScaleLegend will render a gradient legend. It must receive *either* a `
 <a name="legend"/>
 
 #### Legend
+
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/Legend)
 
 - **legendList**: `LegendDatum[]`
     - **label** `string`
