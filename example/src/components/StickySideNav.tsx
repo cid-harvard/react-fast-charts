@@ -12,7 +12,6 @@ import {
 export const mobileHeight = 50; // in px
 
 const Ul = styled.ul`
-  position: sticky;
   top: 0;
   background-color: #fff;
   margin: 1rem 0 0;
@@ -34,7 +33,6 @@ const Link = styled.a`
   justify-content: flex-end;
   background-color: var(--background-color);
   text-decoration: none;
-  text-transform: uppercase;
   color: ${baseColor};
   font-family: ${secondaryFont};
   font-size: 0.8rem;

@@ -23,6 +23,11 @@ import ClusterChart from './pages/ClusterChart';
 import BoxAndWhiskersChart from './pages/BoxAndWhiskersChart';
 import ErrorViz from './pages/Error';
 
+import ColorScaleLegend from './pages/ColorScaleLegend';
+import HorizontalLegend from './pages/HorizontalLegend';
+import HowToReadDots from './pages/HowToReadDots';
+import Legend from './pages/Legend';
+
 const navItems = [
   {label: 'Scatter Plot', target: '#/' + VizType.ScatterPlot},
   {label: 'Bar Chart', target: '#/' + VizType.BarChart},
@@ -35,6 +40,11 @@ const navItems = [
   {label: 'Cluster Chart', target: '#/' + VizType.ClusterChart},
   {label: 'Box And Whiskers Chart', target: '#/' + VizType.BoxAndWhiskersChart},
   {label: 'Error', target: '#/' + VizType.Error},
+
+  {label: 'Color Scale Legend', target: '#/ColorScaleLegend'},
+  {label: 'Horizontal Legend', target: '#/HorizontalLegend'},
+  {label: 'How To Read Dots', target: '#/HowToReadDots'},
+  {label: 'Legend', target: '#/Legend'},
 ]
 
 const App = () => {
@@ -60,6 +70,10 @@ const App = () => {
               <Route exact path={'/' + VizType.ClusterChart} component={ClusterChart} />
               <Route exact path={'/' + VizType.BoxAndWhiskersChart} component={BoxAndWhiskersChart} />
               <Route exact path={'/' + VizType.Error} component={ErrorViz} />
+              <Route exact path={'/ColorScaleLegend'} component={ColorScaleLegend} />
+              <Route exact path={'/HorizontalLegend'} component={HorizontalLegend} />
+              <Route exact path={'/HowToReadDots'} component={HowToReadDots} />
+              <Route exact path={'/Legend'} component={Legend} />
             <Route component={Landing} />
           </Switch>
         </Router>
