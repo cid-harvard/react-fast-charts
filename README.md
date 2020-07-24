@@ -1,6 +1,6 @@
 # react-fast-charts
 
-> react-fast-charts utilizes the power of D3 to quickly create powerful, customizable charts in React. It is an opinionated library that was built for the [Harvard Growth Lab Digital](https://growthlab.app/) in order to build reusable data visualizations across a broad spectrum of use cases.
+> react-fast-charts utilizes the power of D3 to quickly create powerful, customizable charts in React. It is an opinionated library that was built for the [Harvard Growth Lab Digital Hub](https://growthlab.app/) in order to build reusable data visualizations across a broad spectrum of use cases.
 
 [![NPM](https://img.shields.io/npm/v/react-fast-charts.svg)](https://www.npmjs.com/package/react-fast-charts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
