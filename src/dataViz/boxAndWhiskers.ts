@@ -74,7 +74,7 @@ const sumstat = d3.nest() // nest function allows to group the calculation per l
 
   // Show the Y scale
   const y = d3.scaleLinear()
-    .domain([minY * 1.15,maxY * 1.15])
+    .domain([minY * 0.85,maxY * 1.15])
     .range([height, 0]);
 
   group.append('g')

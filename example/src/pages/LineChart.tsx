@@ -4,6 +4,7 @@ import {
   TwoColumnSection,
   SectionHeader,
   Code,
+  CenteredCode,
 } from '../styling/styleUtils';
 import DataViz, {
   VizType,
@@ -60,8 +61,19 @@ const data: LineChartDatum[] = [
   }
 ];
 
-const codeAsString = `<DataViz
-  id={'sandbox-line-chart'}
+const codeAsString = `import DataViz, {
+  VizType,
+  LineChartDatum,
+  LabelPosition,
+  LabelAnchor,
+} from 'react-fast-charts';
+
+
+...
+
+
+<DataViz
+  id={'example-line-chart'}
   vizType={VizType.LineChart}
   data={data}
   axisLabels={{left: 'Value', bottom: 'Year'}}
@@ -69,6 +81,9 @@ const codeAsString = `<DataViz
     minY: -10,
     maxY: 20,
     maxX: 2021,
+  }}
+  formatAxis={{
+    x: n => n.toString()
   }}
 />
 `;
@@ -125,7 +140,7 @@ const data: LineChartDatum[] = [
 
 `;
 
-const LineChart = () => {
+export default () => {
   return (
     <Content>
       <TwoColumnSection>
@@ -140,6 +155,9 @@ const LineChart = () => {
             maxY: 20,
             maxX: 2021,
           }}
+          formatAxis={{
+            x: n => n.toString()
+          }}
         />
         <div>
           <Code>
@@ -147,13 +165,12 @@ const LineChart = () => {
           </Code>
         </div>
       </TwoColumnSection>
-      <div>
+      <CenteredCode>
         <Code>
           {dataAsString}
         </Code>
-      </div>
+      </CenteredCode>
     </Content>
   );
 };
 
-export default LineChart;

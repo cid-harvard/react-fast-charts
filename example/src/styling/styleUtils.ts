@@ -183,6 +183,12 @@ export const Code = styled.pre`
   color: #444;
   padding: 1rem;
   box-sizing: border-box;
+  margin: 1rem 1rem;
+`;
+
+export const CenteredCode = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const FullWidth = styled.div`
