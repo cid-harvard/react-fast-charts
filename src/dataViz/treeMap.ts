@@ -25,10 +25,11 @@ interface Input {
   size: Dimensions;
   data: RootDatum;
   labelFont?: string;
+  animateOn?: boolean;
 }
 
 export default (input: Input) => {
-  const { svg, size, data, tooltip, labelFont} = input;
+  const { svg, size, data, tooltip, labelFont, animateOn} = input;
 
   const margin = {top: 0, right: 0, bottom: 0, left: 0};
   const width = size.width - margin.left - margin.right;
@@ -100,11 +101,13 @@ export default (input: Input) => {
       .text((d: any) => d.data.label + ' - ' + d.data.size + '%')
       .call(wrap);
 
-  cell
-      .style('transform', (d: any) => `translate(${d.x0}px, ${d.y0}px) scale(0)`)
-      .transition()
-      .duration(500)
-      .style('transform', (d: any) => `translate(${d.x0}px, ${d.y0}px) scale(1)`);
+  if (animateOn) {
+    cell
+        .style('transform', (d: any) => `translate(${d.x0}px, ${d.y0}px) scale(0)`)
+        .transition()
+        .duration(500)
+        .style('transform', (d: any) => `translate(${d.x0}px, ${d.y0}px) scale(1)`);
+  }
 
   function wrap(text: any) {
     text.each(function() {

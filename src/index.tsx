@@ -1,6 +1,6 @@
 import { ExtendedFeature, scaleOrdinal, select } from 'd3';
 import React, {useState, useEffect, useRef} from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import createScatterPlot, {Datum as ScatterPlotDatum} from './dataViz/scatterPlot';
 import createBarChart, {
   Datum as BarChartDatum,
@@ -21,6 +21,7 @@ import creatLineChart, {
   AnimationDirection,
 } from './dataViz/lineChart';
 import createTreeMap, {RootDatum, LeafDatum} from './dataViz/treeMap';
+import createDifferenceTreeMap from './dataViz/differenceTreeMap';
 import createStackChart, {Datum as StackChartDatum, StackChartConfig} from './dataViz/stackChart';
 import createClusterChart, {Datum as ClusterChartDatum} from './dataViz/clusterChart';
 import createBoxAndWhiskersChart, {Datum as BoxAndWhiskersChartDatum} from './dataViz/boxAndWhiskers';
@@ -135,6 +136,7 @@ export enum VizType {
   GeoMap = 'GeoMap',
   LineChart = 'LineChart',
   TreeMap = 'TreeMap',
+  DifferenceTreeMap = 'DifferenceTreeMap',
   StackChart = 'StackChart',
   ClusterChart = 'ClusterChart',
   BoxAndWhiskersChart = 'BoxAndWhiskersChart',
@@ -243,6 +245,12 @@ type Props = BaseProps & (
   } | {
     vizType: VizType.TreeMap;
     data: RootDatum;
+    animateOn?: boolean;
+  } | {
+    vizType: VizType.DifferenceTreeMap;
+    data: [RootDatum, RootDatum];
+    animateOn?: boolean;
+    formatValue?: (value: number) => string;
   } | {
     vizType: VizType.StackChart;
     config: StackChartConfig;
@@ -358,6 +366,15 @@ export const DataViz = (props: Props) => {
           svg, tooltip, data: props.data, labelFont: props.labelFont, size: {
             width: sizingNode.clientWidth, height: sizingNode.clientHeight,
           },
+          animateOn: props.animateOn,
+        });
+      } else if (props.vizType === VizType.DifferenceTreeMap) {
+        createDifferenceTreeMap({
+          svg, tooltip, data: props.data, labelFont: props.labelFont, size: {
+            width: sizingNode.clientWidth, height: sizingNode.clientHeight,
+          },
+          animateOn: props.animateOn,
+          formatValue: props.formatValue,
         });
       } else if (props.vizType === VizType.StackChart) {
         createStackChart({

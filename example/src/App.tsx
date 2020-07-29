@@ -18,6 +18,7 @@ import RadarChart from './pages/RadarChart';
 import GeoMap from './pages/GeoMap';
 import LineChart from './pages/LineChart';
 import TreeMap from './pages/TreeMap';
+import DifferenceTreeMap from './pages/DifferenceTreeMap';
 import StackChart from './pages/StackChart';
 import ClusterChart from './pages/ClusterChart';
 import BoxAndWhiskersChart from './pages/BoxAndWhiskersChart';
@@ -36,6 +37,7 @@ const navItems = [
   {label: 'GeoMap', target: '#/' + VizType.GeoMap},
   {label: 'Line Chart', target: '#/' + VizType.LineChart},
   {label: 'TreeMap', target: '#/' + VizType.TreeMap},
+  {label: 'Difference TreeMap', target: '#/' + VizType.DifferenceTreeMap},
   {label: 'Stack Chart', target: '#/' + VizType.StackChart},
   {label: 'Cluster Chart', target: '#/' + VizType.ClusterChart},
   {label: 'Box And Whiskers Chart', target: '#/' + VizType.BoxAndWhiskersChart},
@@ -66,6 +68,7 @@ const App = () => {
               <Route exact path={'/' + VizType.GeoMap} component={GeoMap} />
               <Route exact path={'/' + VizType.LineChart} component={LineChart} />
               <Route exact path={'/' + VizType.TreeMap} component={TreeMap} />
+              <Route exact path={'/' + VizType.DifferenceTreeMap} component={DifferenceTreeMap} />
               <Route exact path={'/' + VizType.StackChart} component={StackChart} />
               <Route exact path={'/' + VizType.ClusterChart} component={ClusterChart} />
               <Route exact path={'/' + VizType.BoxAndWhiskersChart} component={BoxAndWhiskersChart} />
