@@ -24,7 +24,6 @@ const primaryData: RootDatum = {
       {
         "id": "Beverages",
         "label": "Beverages",
-        "tooltipContent": "Beverages",
         "size": 0.5
       }
     ]
@@ -37,31 +36,26 @@ const primaryData: RootDatum = {
       {
         "id": "Chemicals1",
         "label": "Chemicals 1",
-        "tooltipContent": "Chemicals1",
         "size": 2
       },
       {
         "id": "Chemicals2",
         "label": "Chemicals 2",
-        "tooltipContent": "Chemicals2",
         "size": 2
       },
       {
         "id": "Chemicals3",
         "label": "Chemicals 3",
-        "tooltipContent": "Chemicals3",
         "size": 1
       },
       {
         "id": "Chemicals4",
         "label": "Chemicals 4",
-        "tooltipContent": "Chemicals4",
         "size": 0.5
       },
       {
         "id": "Chemicals5",
         "label": "Chemicals 5",
-        "tooltipContent": "Chemicals5",
         "size": 1
       }
     ]
@@ -74,7 +68,6 @@ const primaryData: RootDatum = {
       {
         "id": "CrudeMaterials",
         "label": "Crude Materials",
-        "tooltipContent": "CrudeMaterials",
         "size": 1
       }
     ]
@@ -87,13 +80,11 @@ const primaryData: RootDatum = {
       {
         "id": "Fish",
         "label": "Fish",
-        "tooltipContent": "Fish",
         "size": 8
       },
       {
         "id": "Poultry",
         "label": "Poultry",
-        "tooltipContent": "Poultry",
         "size": 8
       }
     ]
@@ -106,31 +97,26 @@ const primaryData: RootDatum = {
       {
         "id": "Road",
         "label": "Road",
-        "tooltipContent": "Road",
         "size": 5
       },
       {
         "id": "Cars",
         "label": "Cars",
-        "tooltipContent": "Cars",
         "size": 4
       },
       {
         "id": "Trucks",
         "label": "Trucks",
-        "tooltipContent": "Trucks",
         "size": 3
       },
       {
         "id": "Tires",
         "label": "Tires",
-        "tooltipContent": "Tires",
         "size": 1
       },
       {
         "id": "Other",
         "label": "Other",
-        "tooltipContent": "Other",
         "size": 0.5
       }
     ]
@@ -143,19 +129,16 @@ const primaryData: RootDatum = {
       {
         "id": "Leather",
         "label": "Leather",
-        "tooltipContent": "Leather",
         "size": 16
       },
       {
         "id": "Cotton",
         "label": "Cotton",
-        "tooltipContent": "Cotton",
         "size": 4
       },
       {
         "id": "Wool",
         "label": "Wool",
-        "tooltipContent": "Wool",
         "size": 4
       }
     ]
@@ -168,7 +151,6 @@ const primaryData: RootDatum = {
       {
         "id": "SpecialTransactions",
         "label": "Special Transactions, commodity not classified according to class",
-        "tooltipContent": "Special Transactions, commodity not classified according to class",
         "size": 28
       }
     ]
@@ -181,13 +163,11 @@ const primaryData: RootDatum = {
       {
         "id": "ICT",
         "label": "ICT",
-        "tooltipContent": "ICT",
         "size": 61
       },
       {
         "id": "TravelandTourism",
         "label": "Travel and Tourism",
-        "tooltipContent": "TravelandTourism",
         "size": 60
       }
     ]
@@ -200,7 +180,6 @@ const primaryData: RootDatum = {
       {
         "id": "OliveOil",
         "label": "Olive Oil",
-        "tooltipContent": "OliveOil",
         "size": 0.4
       }
     ]
@@ -241,6 +220,13 @@ export default () => {
       return {...child, size};
     }) : undefined;
     if (children) {
+      if (datum.label === 'Unspecified') {
+        children.push({
+          "id": "Other",
+          "label": "Other",
+          "size": 67
+        })
+      }
       return {...datum, children};
     } else {
       return {...datum, children: []};
@@ -254,7 +240,7 @@ export default () => {
   return (
     <Content>
       <TwoColumnSection>
-        <SectionHeader>TreeMap</SectionHeader>
+        <SectionHeader>Difference TreeMap</SectionHeader>
           <DataViz
             id={'example-difference-tree-map'}
             vizType={VizType.DifferenceTreeMap}

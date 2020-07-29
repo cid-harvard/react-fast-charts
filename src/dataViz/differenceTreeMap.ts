@@ -20,17 +20,8 @@ interface Input {
 
 export default (input: Input) => {
   const { svg, size, tooltip, labelFont, animateOn, formatValue} = input;
-  // const primaryData = input.data[0];
-  // const secondaryData = input.data[1];
 
   const mergedData = transformData(input.data[0], input.data[1]);
-
-  // let flattenedSecondaryData: LeafDatum[] = [];
-  // secondaryData.children.forEach(datum => {
-  //   if ((datum as RootDatum).children) {
-  //     flattenedSecondaryData = [...flattenedSecondaryData, ...(datum as RootDatum).children as LeafDatum[]];
-  //   }
-  // })
 
   const margin = {top: 0, right: 0, bottom: 0, left: 0};
   const width = size.width - margin.left - margin.right;
@@ -56,22 +47,21 @@ export default (input: Input) => {
        });
 
   treemap(root);
-  // console.log({primaryData, flattenedSecondaryData, root})
 
   const cell = svg.selectAll('g')
     .data(root.leaves())
     .enter().append('g')
       .each((d: any) => {
-        // const secondaryDatum = flattenedSecondaryData.find(datum => datum.label === d.data.label);
-        // const secondaryValue = secondaryDatum && secondaryDatum.size ? secondaryDatum.size : 0;
-        // const primaryValue = d.data.size;
         const larger = d.data.primaryValue > d.data.secondaryValue ? d.data.primaryValue : d.data.secondaryValue;
         const smaller = d.data.primaryValue === larger ? d.data.secondaryValue : d.data.primaryValue;
         const diff = Math.sqrt(smaller/larger);
-        d.secondaryWidth = diff * (d.x1 - d.x0);
-        d.secondaryHeight = diff * (d.y1 - d.y0);
-        d.secondaryLeft = ((d.x1 - d.x0) - d.secondaryWidth) / 2;
-        d.secondaryTop = ((d.y1 - d.y0) - d.secondaryHeight) / 2;
+        d.primaryWidth = d.x1 - d.x0;
+        d.primaryHeight = d.y1 - d.y0;;
+
+        d.secondaryWidth = diff * d.primaryWidth;
+        d.secondaryHeight = diff * d.primaryHeight;
+        d.secondaryLeft = (d.primaryWidth - d.secondaryWidth) / 2;
+        d.secondaryTop = (d.primaryHeight - d.secondaryHeight) / 2;
       })
       .attr('transform', (d: any) => 'translate(' + d.x0 + ',' + d.y0 + ')')
       .on('mousemove', (d: any) => {
@@ -133,10 +123,10 @@ export default (input: Input) => {
 
   cell.append('rect')
       .attr('id', (d: any) => d.data.id)
-      .attr('finalwidth', (d: any) => d.x1 - d.x0)
-      .attr('finalheight', (d: any) => d.y1 - d.y0)
-      .attr('width', (d: any) => d.x1 - d.x0)
-      .attr('height', (d: any) => d.y1 - d.y0)
+      .attr('finalwidth', (d: any) => d.primaryWidth)
+      .attr('finalheight', (d: any) => d.primaryHeight)
+      .attr('width', (d: any) => d.primaryWidth)
+      .attr('height', (d: any) => d.primaryHeight)
       .attr('fill', (d: any) => {
         const primaryValue = d.data.primaryValue ? d.data.primaryValue : 0;
         const secondaryValue = d.data.secondaryValue ? d.data.secondaryValue : 0;

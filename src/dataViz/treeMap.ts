@@ -10,7 +10,7 @@ export interface RootDatum {
 export interface LeafDatum {
   id: string;
   label: string;
-  tooltipContent: string;
+  tooltipContent?: string;
   size: number;
 }
 
