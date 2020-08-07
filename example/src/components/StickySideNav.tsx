@@ -92,7 +92,7 @@ const StickySideNav = (props: Props) => {
    } = props;
 
 
-  const colorTheme: React.CSSProperties = {
+  const colorTheme: any = {
     '--background-color': backgroundColor,
     '--hover-color': hoverColor,
     '--border-color': hoverColor,

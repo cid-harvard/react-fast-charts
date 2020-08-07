@@ -1,6 +1,10 @@
 # react-fast-charts
 
-> react-fast-charts utilizes the power of D3 to quickly create powerful, customizable charts in React. It is an opinionated library that was built for the [Harvard Growth Lab Digital Hub](https://growthlab.app/) in order to build reusable data visualizations across a broad spectrum of use cases.
+## by the Growth Lab at Harvard's Center for International Development
+
+react-fast-charts utilizes the power of D3 to quickly create powerful, customizable charts in React. It is an opinionated library that was built for the [Harvard Growth Lab Digital Hub](https://growthlab.app/) in order to build reusable data visualizations across a broad spectrum of use cases.
+
+> This package is part of Harvard Growth Lab’s portfolio of software packages, digital products and interactive data visualizations.  To browse our entire portfolio, please visit [growthlab.app](https://growthlab.app/).  To learn more about our research, please visit [Harvard Growth Lab’s](https://growthlab.cid.harvard.edu/) home page.
 
 [![NPM](https://img.shields.io/npm/v/react-fast-charts.svg)](https://www.npmjs.com/package/react-fast-charts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -23,6 +27,7 @@ npm install --save react-fast-charts
     - [VizType.GeoMap](#viztypegeomap)
     - [VizType.LineChart](#viztypelinechart)
     - [VizType.TreeMap](#viztypetreemap)
+    - [VizType.DifferenceTreeMap](#viztypedifftreemap)
     - [VizType.StackChart](#viztypestackchart)
     - [VizType.ClusterChart](#viztypeclusterchart)
     - [VizType.BoxAndWhiskersChart](#viztypeboxandwhiskerschart)
@@ -259,6 +264,25 @@ ___
         - **label**: `string`
         - **tooltipContent**: `string`
         - **size**: `number`
+- **animateOn** *(optional)*: `boolean`
+
+<a name="viztypedifftreemap"/>
+
+#### VizType.DifferenceTreeMap
+
+[View live example ↗](https://cid-harvard.github.io/react-fast-charts/#/DifferenceTreeMap)
+
+- **data**: `RootDatum[]`
+    - **id**: `string`
+    - **label**: `string`
+    - **fill** *(optional)*: `string`
+    - **children**: `(LeafDatum | RootDatum)[]` array of `RootDatum` or `LeafDatum` elements, where a `LeafDatum` looks like:
+        - **id**: `string`
+        - **label**: `string`
+        - **tooltipContent**: `string`
+        - **size**: `number`
+- **animateOn** *(optional)*: `boolean`
+- **formatValue** *(optional)*: `(value: number) => string` Function that formats how the raw value will be displayed in the chart
 
 <a name="viztypestackchart"/>
 
