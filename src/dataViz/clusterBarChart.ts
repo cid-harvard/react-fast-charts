@@ -89,6 +89,7 @@ export default (input: Input) => {
       return height - y(d.y);
     })
     .attr('fill', d => d.fill ? d.fill : color(d.groupName))
+    .style('cursor', ({onClick}) => onClick ? 'pointer' : 'default')  
     .on('mousemove', ({groupName, x: valueName, tooltipContent, tooltipContentOnly}) => {
       if (tooltipContentOnly && tooltipContent && tooltipContent.length) {
         tooltip.html(tooltipContent);
@@ -105,7 +106,9 @@ export default (input: Input) => {
     .on('mouseout', () => {
       tooltip
           .style('display', 'none');
-    });
+    })
+    .on('click', ({onClick}) => onClick ? onClick() : undefined);
+    
 
   g.append('g')
     .attr('class', 'axis')
