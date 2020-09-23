@@ -100,6 +100,7 @@ export default (input: Input) => {
       }
       tooltip
         .style('display', 'block')
+        .style('transform', 'translate(-50%, -100%)')
         .style('left', (d3.event.pageX + 4) + 'px')
         .style('top', (d3.event.pageY - 4) + 'px');
       })
@@ -113,11 +114,13 @@ export default (input: Input) => {
   g.append('g')
     .attr('class', 'axis')
     .attr('transform', 'translate(0,' + height + ')')
+    .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
     .call(d3.axisBottom(x));
 
   // append Y axis label
   g.append('g')
     .attr('class', 'axis')
+    .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
     .call(d3.axisLeft(y).ticks(null, 's'))
     .append('text')
     .attr('x', 2)
