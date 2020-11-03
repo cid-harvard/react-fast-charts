@@ -9,6 +9,8 @@ export interface Datum {
   tooltipContent?: string;
   tooltipContentOnly?: boolean;
   onClick?: () => void;
+  onMouseMove?: (d: Datum, coords: {x: number, y: number}) => void;
+  onMouseLeave?: (d: Datum, coords: {x: number, y: number}) => void;
 }
 
 interface Dimensions {
@@ -76,8 +78,8 @@ export default (input: Input) => {
       return d.y;
     });
 
-  const minY = rawMinY ? Math.floor(rawMinY) : 0;
-  const maxY = rawMaxY ? Math.ceil(rawMaxY) : 0;
+  const minY = rawMinY ? rawMinY : 0;
+  const maxY = rawMaxY ? rawMaxY : 0;
 
   y.domain([minY, maxY]);
   x.domain(data.map(function(d) {
@@ -116,23 +118,32 @@ export default (input: Input) => {
     .attr('width', x1.bandwidth())
     .attr('fill', d => d.fill ? d.fill : color(d.groupName))
     .style('cursor', ({onClick}) => onClick ? 'pointer' : 'default')  
-    .on('mousemove', ({groupName, x: valueName, tooltipContent, tooltipContentOnly}) => {
-      if (tooltipContentOnly && tooltipContent && tooltipContent.length) {
-        tooltip.html(tooltipContent);
+    .on('mousemove', d => {
+      const {groupName, x: valueName, tooltipContent, tooltipContentOnly, onMouseMove} = d;
+      if (onMouseMove) {
+        onMouseMove(d, {x: d3.event.pageX, y: d3.event.pageY})
       } else {
-        const content = tooltipContent === undefined || tooltipContent.length === 0
-          ? '' : `:<br />${tooltipContent}`;
-        tooltip.html(`<strong>${groupName}, ${valueName}</strong>${content}`);
+        if (tooltipContentOnly && tooltipContent && tooltipContent.length) {
+          tooltip.html(tooltipContent);
+        } else {
+          const content = tooltipContent === undefined || tooltipContent.length === 0
+            ? '' : `:<br />${tooltipContent}`;
+          tooltip.html(`<strong>${groupName}, ${valueName}</strong>${content}`);
+        }
+        tooltip
+          .style('display', 'block')
+          .style('transform', 'translate(-50%, -100%)')
+          .style('left', (d3.event.pageX + 4) + 'px')
+          .style('top', (d3.event.pageY - 4) + 'px');
       }
-      tooltip
-        .style('display', 'block')
-        .style('transform', 'translate(-50%, -100%)')
-        .style('left', (d3.event.pageX + 4) + 'px')
-        .style('top', (d3.event.pageY - 4) + 'px');
       })
-    .on('mouseout', () => {
-      tooltip
-          .style('display', 'none');
+    .on('mouseout', d => {
+      if (d.onMouseLeave) {
+        d.onMouseLeave(d, {x: d3.event.pageX, y: d3.event.pageY})
+      } else {
+        tooltip
+            .style('display', 'none');
+      }
     })
     .on('click', ({onClick}) => onClick ? onClick() : undefined)
     .attr('y', height)
@@ -188,5 +199,16 @@ export default (input: Input) => {
         .style('fill', 'rgba(0, 0, 0, 1)')
         .call(d3.axisBottom(x));
     }
+
+     // append Y axis label
+    g.append('g')
+      .append('text')
+      .attr('y', -margin.top / 2)
+      .attr('x', 0)
+      .attr('dy', '0.75em')
+      .attr('fill', '#000')
+      .attr('text-anchor', 'start')
+      .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
+      .text(axisLabels && axisLabels.left ? axisLabels.left : '');
 
 };

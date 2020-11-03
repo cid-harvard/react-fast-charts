@@ -177,6 +177,8 @@ ___
     - **tooltipContent** *(optional)*: `string`
     - **tooltipContentOnly** *(optional)*: `boolean`
     - **onClick** *(optional)*: `() => void`
+    - **onMouseMove** *(optional)*: `(d: Datum, coords: {x: number, y: number}) => void` if defined, the default tooltips will not be shown
+    - **onMouseLeave** *(optional)*: `(d: Datum, coords: {x: number, y: number}) => void` if defined, the default tooltips will not be shown
 - **axisLabels** *(optional)*: `object`
     - **left** *(optional)*: `string`
     - **bottom** *(optional)*: `string`
