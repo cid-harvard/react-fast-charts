@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Content } from '../styling/Grid';
 import {
   TwoColumnSection,
@@ -11,126 +11,76 @@ import DataViz, {
   ClusterBarChartDatum,
 } from 'react-fast-charts';
 
-const data1: ClusterBarChartDatum[] = [
+const data: ClusterBarChartDatum[] = [
   {
-    x: '2011 Extra long title that breaks into the next line',
-    y: .06,
+    x: '2011',
+    y: 6,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
     x: '2012',
-    y: .09,
+    y: 9,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
     x: '2013',
-    y: .02,
+    y: 2,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
     x: '2014',
-    y: .05,
+    y: 5,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
     x: '2015',
-    y: .08,
-    fill: 'blue',
-    groupName: 'Group 1',
-  },
-  {
-    x: '2016',
-    y: .07,
-    fill: 'blue',
-    groupName: 'Group 1',
-  },
-  {
-    x: '2011 Extra long title that breaks into the next line',
-    y: .04,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-  {
-    x: '2012',
-    y: .07,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-  {
-    x: '2013',
-    y: .05,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-  {
-    x: '2014',
-    y: .09,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-  {
-    x: '2015',
-    y: .03,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-  {
-    x: '2016',
-    y: .010,
-    fill: 'green',
-    groupName: 'Group 2',
-  },
-];
-const data2: ClusterBarChartDatum[] = [
-  {
-    x: '1990',
     y: 8,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
-    x: '1991',
-    y: 10,
-    fill: 'blue',
-    groupName: 'Group 1',
-  },
-  {
-    x: '1993',
+    x: '2016',
     y: 7,
     fill: 'blue',
     groupName: 'Group 1',
   },
   {
-    x: '1995',
-    y: 19,
-    fill: 'blue',
-    groupName: 'Group 1',
-  },
-  {
-    x: '1990',
-    y: 6,
+    x: '2011',
+    y: 4,
     fill: 'green',
     groupName: 'Group 2',
   },
   {
-    x: '1991',
+    x: '2012',
     y: 7,
     fill: 'green',
     groupName: 'Group 2',
   },
   {
-    x: '1993',
+    x: '2013',
+    y: 5,
+    fill: 'green',
+    groupName: 'Group 2',
+  },
+  {
+    x: '2014',
+    y: 9,
+    fill: 'green',
+    groupName: 'Group 2',
+  },
+  {
+    x: '2015',
     y: 3,
     fill: 'green',
     groupName: 'Group 2',
   },
   {
-    x: '1995',
-    y: 20,
+    x: '2016',
+    y: 10,
     fill: 'green',
     groupName: 'Group 2',
   },
@@ -230,25 +180,14 @@ const data: ClusterBarChartDatum[] = [
 `;
 
 export default () => {
-  const [dataNumber, setDataNumber] = useState<number>(1);
-  const data = dataNumber === 1 ? data1 : data2;
-  const toggleData = () => setDataNumber(curr => curr === 1 ? 2 : 1);
   return (
     <Content>
-      <button onClick={toggleData}>Toggle Data</button>
       <TwoColumnSection>
         <SectionHeader>Cluster Bar Chart</SectionHeader>
           <DataViz
             id={'example-cluster-bar-chart'}
             vizType={VizType.ClusterBarChart}
             data={data}
-            animateAxis={{
-              animationDuration: 500,
-              startMinY: dataNumber === 1 ? 0 : 1,
-              startMaxY: dataNumber === 1 ? 20 : 100,
-            }}
-            animateBars={500}
-            axisLabels={{left: 'Title'}}
           />
         <div>
           <Code>
