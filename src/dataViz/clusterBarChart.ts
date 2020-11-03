@@ -77,9 +77,8 @@ export default (input: Input) => {
     : d3.max(data, function(d) {
       return d.y;
     });
-
-  const minY = rawMinY ? rawMinY : 0;
-  const maxY = rawMaxY ? rawMaxY : 0;
+  const minY = rawMinY ? Math.floor(rawMinY * 0.8) : 0;
+  const maxY = rawMaxY && rawMaxY > 0.1 ? Math.ceil(rawMaxY * 1.05) : 0.1;
 
   y.domain([minY, maxY]);
   x.domain(data.map(function(d) {
