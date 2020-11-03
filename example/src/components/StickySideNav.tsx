@@ -63,16 +63,6 @@ const Link = styled.a`
   }
 `;
 
-// Allow CSS custom properties
-declare module 'csstype' {
-  interface Properties {
-    '--background-color'?: string;
-    '--hover-color'?: string;
-    '--border-color'?: string;
-    '--border-hover-color'?: string;
-  }
-}
-
 export interface NavItem {
   label: string;
   target: string;
