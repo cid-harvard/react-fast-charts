@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import {formatNumber} from './Utils';
 
 export interface Datum {
   groupName: string;
@@ -22,10 +23,30 @@ interface Input {
   size: Dimensions;
   axisLabels?: {left?: string, bottom?: string};
   labelFont?: string;
+  axisMinMax?: {
+    minY?: number,
+    maxY?: number,
+  };
+  formatAxis?: {
+    y?: (n: number) => string;
+  };
+  animateAxis?: {
+    animationDuration: number,
+    startMinY: number,
+    startMaxY: number,
+  };
+  tickCount?: {
+    x?: number;
+    y?: number;
+  };
+  animateBars?: number;
 }
 
 export default (input: Input) => {
-  const { svg, size, axisLabels, data, tooltip, labelFont } = input;
+  const {
+    svg, size, axisLabels, data, tooltip, labelFont, formatAxis,
+    animateAxis, tickCount, axisMinMax, animateBars,
+  } = input;
 
   const margin = {
     top: 30, right: 30,
@@ -36,21 +57,32 @@ export default (input: Input) => {
 
   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
+  // set the ranges
   const x = d3.scaleBand().rangeRound([0, width])
-    .padding(0.1),
-    y = d3.scaleLinear().rangeRound([height, 0]);
+    .padding(0.1);
+  const y = d3.scaleLinear().range([height, 0]);
 
   const g = svg.append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  const yMax = d3.max(data, function(d) {
-    return d.y;
-  });
-  const yMaxDomain = yMax ? yMax : 0;
+  const rawMinY = axisMinMax && axisMinMax.minY !== undefined
+    ? axisMinMax.minY
+    : d3.min(data, function(d) {
+      return d.y;
+    });
+  const rawMaxY = axisMinMax && axisMinMax.maxY !== undefined
+    ? axisMinMax.maxY
+    : d3.max(data, function(d) {
+      return d.y;
+    });
+
+  const minY = rawMinY ? Math.floor(rawMinY) : 0;
+  const maxY = rawMaxY ? Math.ceil(rawMaxY) : 0;
+
+  y.domain([minY, maxY]);
   x.domain(data.map(function(d) {
     return d.x;
   }));
-  y.domain([0, yMaxDomain]);
 
   const x1 = d3.scaleBand()
     .rangeRound([0, x.bandwidth()])
@@ -81,13 +113,7 @@ export default (input: Input) => {
       const xVal = x1(d.groupName);
       return xVal ? xVal : 0;
     })
-    .attr('y', function(d) {
-      return y(d.y);
-    })
     .attr('width', x1.bandwidth())
-    .attr('height', function(d) {
-      return height - y(d.y);
-    })
     .attr('fill', d => d.fill ? d.fill : color(d.groupName))
     .style('cursor', ({onClick}) => onClick ? 'pointer' : 'default')  
     .on('mousemove', ({groupName, x: valueName, tooltipContent, tooltipContentOnly}) => {
@@ -108,34 +134,59 @@ export default (input: Input) => {
       tooltip
           .style('display', 'none');
     })
-    .on('click', ({onClick}) => onClick ? onClick() : undefined);
-    
-
-  g.append('g')
-    .attr('class', 'axis')
-    .attr('transform', 'translate(0,' + height + ')')
-    .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
-    .call(d3.axisBottom(x));
-
-  // append Y axis label
-  g.append('g')
-    .attr('class', 'axis')
-    .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
-    .call(d3.axisLeft(y).ticks(null, 's'))
-    .append('text')
-    .attr('x', 2)
-    .attr('y', () => {
-      const yTick = y.ticks().pop();
-      const yTickVal = yTick ? yTick : 0;
-      return y(yTickVal) + 0.5;
+    .on('click', ({onClick}) => onClick ? onClick() : undefined)
+    .attr('y', height)
+    .transition() // Call Transition Method
+    .duration(animateBars ? animateBars : 0) // Set Duration timing (ms)
+    .delay(animateAxis && animateAxis.animationDuration ? animateAxis.animationDuration : 0)
+    .attr('y', function(d) {
+      return y(d.y);
     })
-    // .attr("dy", "0.32em")
+    .attr('height', function(d) {
+      return height - y(d.y);
+    })
 
-      .attr('y', -margin.top / 2)
-      .attr('x', 0)
-      .attr('dy', '0.75em')
-    .attr('fill', '#000')
-    .attr('text-anchor', 'start')
-    .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
-    .text(axisLabels && axisLabels.left ? axisLabels.left : '');
+
+    const formatY = formatAxis && formatAxis.y ? formatAxis.y : formatNumber;
+    let yDomain = d3.axisLeft(y);
+    if (animateAxis !== undefined) {
+      const {
+        startMinY, startMaxY,
+      } = animateAxis;
+      const startY = d3.scaleLinear().range([height, 0]);
+      // Scale the range of the data
+      startY.domain([startMinY, startMaxY]);
+
+      // xDomain = d3.axisBottom(startX);
+      yDomain = d3.axisLeft(startY);
+    }
+
+    // Add the x Axis
+    g.append('g')
+        .attr('class', 'myXaxis')
+        .attr('transform', 'translate(0,' + height + ')')
+        .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
+        .call(d3.axisBottom(x));
+
+    // Add the y Axis
+    g.append('g')
+        .attr('class', 'myYaxis')
+        // .attr('transform', 'translate(' + margin.left + ', 0)')
+        .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
+        .call(yDomain.tickFormat(formatY).ticks(tickCount && tickCount.y ? tickCount.y : 10));
+
+    if (animateAxis !== undefined) {
+      (g.selectAll('.myYaxis')
+        .transition()
+        .duration(animateAxis.animationDuration) as any)
+        .call(d3.axisLeft(y).tickFormat(formatY).ticks(tickCount && tickCount.y ? tickCount.y : 10));
+
+      (g.selectAll('.myXaxis text')
+        .style('fill', 'rgba(0, 0, 0, 0)')
+        .transition()
+        .duration(animateAxis.animationDuration) as any)
+        .style('fill', 'rgba(0, 0, 0, 1)')
+        .call(d3.axisBottom(x));
+    }
+
 };

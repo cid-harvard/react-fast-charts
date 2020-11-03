@@ -200,6 +200,23 @@ type Props = BaseProps & (
     vizType: VizType.ClusterBarChart;
     data: ClusterBarChartDatum[];
     axisLabels?: {left?: string, bottom?: string};
+    axisMinMax?: {
+      minY?: number,
+      maxY?: number,
+    };
+    formatAxis?: {
+      y?: (n: number) => string;
+    };
+    animateAxis?: {
+      animationDuration: number,
+      startMinY: number,
+      startMaxY: number,
+    };
+    tickCount?: {
+      x?: number;
+      y?: number;
+    };
+    animateBars?: number;
   } |
   {
     vizType: VizType.RadarChart;
@@ -348,6 +365,11 @@ export const DataViz = (props: Props) => {
             width: sizingNode.clientWidth, height: sizingNode.clientHeight,
           },
           axisLabels: props.axisLabels,
+          axisMinMax: props.axisMinMax,
+          formatAxis: props.formatAxis,
+          tickCount: props.tickCount,
+          animateAxis: props.animateAxis,
+          animateBars: props.animateBars,
         });
       } else if (props.vizType === VizType.LineChart) {
         creatLineChart({

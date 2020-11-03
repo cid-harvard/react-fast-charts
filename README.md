@@ -180,6 +180,20 @@ ___
 - **axisLabels** *(optional)*: `object`
     - **left** *(optional)*: `string`
     - **bottom** *(optional)*: `string`
+- **axisMinMax** *(optional)*: `object`
+    - **minY** *(optional)*: `number`
+    - **maxY** *(optional)*: `number`
+- **formatAxis** *(optional)*: `object`
+    - **y** *(optional)*: `(n: number) => string`
+- **tickCount** *(optional)*: `object`
+    - **x** *(optional)*: `number`
+    - **y** *(optional)*: `number`
+- **animateAxis** *(optional)*: `object`
+    - **animationDuration**: `number`
+    - **startMinY**: `number`
+    - **startMaxY**: `number`
+- **animateBars** *(optional)*: `number`
+
 
 <a name="viztyperadarchart"/>
 
