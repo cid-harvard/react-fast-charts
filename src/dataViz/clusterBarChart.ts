@@ -200,7 +200,7 @@ export default (input: Input) => {
 
     // Add the x Axis
     g.append('g')
-        .attr('class', 'myXaxis')
+        .attr('class', 'cluster-bar-char-x-axis')
         .attr('transform', 'translate(0,' + height + ')')
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .call(d3.axisBottom(x))
@@ -209,17 +209,17 @@ export default (input: Input) => {
 
     // Add the y Axis
     g.append('g')
-        .attr('class', 'myYaxis')
+        .attr('class', 'cluster-bar-chart-y-axis')
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .call(yDomain.tickFormat(formatY).ticks(tickCount && tickCount.y ? tickCount.y : 10));
 
     if (animateAxis !== undefined) {
-      (g.selectAll('.myYaxis')
+      (g.selectAll('.cluster-bar-chart-y-axis')
         .transition()
         .duration(animateAxis.animationDuration) as any)
         .call(d3.axisLeft(y).tickFormat(formatY).ticks(tickCount && tickCount.y ? tickCount.y : 10));
 
-      (g.selectAll('.myXaxis text')
+      (g.selectAll('.cluster-bar-char-x-axis text')
         .style('fill', 'rgba(0, 0, 0, 0)')
         .transition()
         .duration(animateAxis.animationDuration) as any)
@@ -232,6 +232,7 @@ export default (input: Input) => {
      // append Y axis label
     g.append('g')
       .append('text')
+      .attr('class', 'cluster-bar-chart-y-axis-label')
       .attr('y', -margin.top / 2)
       .attr('x', 0)
       .attr('dy', '0.75em')
