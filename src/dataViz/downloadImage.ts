@@ -21,7 +21,7 @@ export default (input: Input) => {
     const serializer = new XMLSerializer();
     const svgStr = serializer.serializeToString(svg);
 
-    img.src = 'data:image/svg+xml;base64,' + window.btoa(svgStr);
+    img.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svgStr)));
     img.width = width;
     img.height = height;
 
