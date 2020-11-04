@@ -171,27 +171,31 @@ export default (input: Input) => {
       yDomain = d3.axisLeft(startY);
     }
 
-    function wrap(text: any, width: any) {
+    function truncate(text: any, width: number) {
       text.each(function() {
         // @ts-ignore
         const text = d3.select(this);
         const words = text.text().split(/\s+/).reverse();
         let word: string | undefined;
         let line: string[] = [];
-        let lineNumber = 0;
-        const lineHeight = 1.1; // ems
         const y = text.attr("y");
         const dy = parseFloat(text.attr("dy"));
         let tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
         while (word = words.pop()) {
           line.push(word);
-          tspan.text(line.join(" "));
-          const node = tspan.node();
+          let textValue = line.join(" ");
+          tspan.text(textValue);
+          let node = tspan.node();
           if (node && node.getComputedTextLength() > width) {
-            line.pop();
-            tspan.text(line.join(" "));
-            line = [word];
-            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            while (node && node.getComputedTextLength() > width) {
+              textValue = textValue.substring(0, textValue.length - 3) + '...';
+              tspan.text(textValue);
+              node = tspan.node();
+              if (textValue.length < 100) {
+                break;
+              }
+            }
+            break;
           }
         }
       });
@@ -204,7 +208,7 @@ export default (input: Input) => {
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .call(d3.axisBottom(x))
         .selectAll(".tick text")
-        .call(wrap, x.bandwidth());
+        .call(truncate, x.bandwidth());
 
     // Add the y Axis
     g.append('g')
@@ -225,7 +229,7 @@ export default (input: Input) => {
         .style('fill', 'rgba(0, 0, 0, 1)')
         .call(d3.axisBottom(x))
         .selectAll(".tick text")
-        .call(wrap, x.bandwidth());
+        .call(truncate, x.bandwidth());
     }
 
      // append Y axis label
