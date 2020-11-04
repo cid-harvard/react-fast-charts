@@ -171,30 +171,25 @@ export default (input: Input) => {
       yDomain = d3.axisLeft(startY);
     }
 
+
     function truncate(text: any, width: number) {
+      const ellipsisWidthAndPadding = 12; // empirically measured width of ... with padding
       text.each(function() {
         // @ts-ignore
         const text = d3.select(this);
-        const words = text.text().split(/\s+/).reverse();
-        let word: string | undefined;
+        const letters = text.text().split('').reverse();
+        let label: string | undefined;
         let line: string[] = [];
         const y = text.attr("y");
         const dy = parseFloat(text.attr("dy"));
-        let tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-        while (word = words.pop()) {
-          line.push(word);
-          let textValue = line.join(" ");
+        const tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        while (label = letters.pop()) {
+          line.push(label);
+          const textValue = line.join("");
           tspan.text(textValue);
-          let node = tspan.node();
-          if (node && node.getComputedTextLength() > width) {
-            while (node && node.getComputedTextLength() > width) {
-              textValue = textValue.substring(0, textValue.length - 3) + '...';
-              tspan.text(textValue);
-              node = tspan.node();
-              if (textValue.length < 100) {
-                break;
-              }
-            }
+          const node = tspan.node();
+          if (node && node.getComputedTextLength() > width - ellipsisWidthAndPadding) {
+            tspan.text(textValue + '...');
             break;
           }
         }
