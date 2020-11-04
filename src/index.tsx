@@ -515,7 +515,7 @@ export const DataViz = (props: Props) => {
     return (
       <Root style={rootStyles}>
         <SizingElm ref={sizingNodeRef} style={{height: props.height}}>
-          <svg ref={svgNodeRef} key={id + windowWidth + 'svg'} />
+          <svg ref={svgNodeRef} key={id + windowWidth + 'svg'} className={'react-fast-charts-root-svg'} />
         </SizingElm>
         {caption}
         {downloadButtons}
