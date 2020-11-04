@@ -89,6 +89,8 @@ enum VizType {
 - **jsonToDownload** *(optional)*: `object[]` Displays 'Download Data' button under the visualization and allows the user to download the given data as a CSV
 - **enablePNGDownload** *(optional)*: `boolean` Displays 'Download PNG' button under the visualization and allows the user to download the given visualization as a PNG
 - **enableSVGDownload** *(optional)*: `boolean` Displays 'Download SVG' button under the visualization and allows the user to download the given visualization as a SVG 
+- **triggerPNGDownload** *(optional)*: `(success: boolean) => void` If a callback is provided, a PNG download will be triggered and then the callback will be fired. This will continue until the value is `undefined`.
+- **triggerSVGDownload** *(optional)*: `(success: boolean) => void` If a callback is provided, a SVG download will be triggered and then the callback will be fired. This will continue until the value is `undefined`.
 - **chartTitle** *(optional)*: `string` The optional chart title is used only if one of the above download features is enabled. The chart title replaces the generic text used for the file name if the user downloads an image or csv.
 - **chartCaption** *(optional)*: `string` Places a caption under the chart
 - **rootStyles** *(optional)*: `React.CSSProperties` Define any custom style overrides for the root containing div of the visualization

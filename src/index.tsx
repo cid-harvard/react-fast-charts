@@ -149,6 +149,8 @@ interface BaseProps {
   jsonToDownload?: object[];
   enablePNGDownload?: boolean;
   enableSVGDownload?: boolean;
+  triggerPNGDownload?: (success: boolean) => void;
+  triggerSVGDownload?: (success: boolean) => void;
   chartTitle?: string;
   chartCaption?: string;
   rootStyles?: React.CSSProperties;
@@ -288,7 +290,7 @@ type Props = BaseProps & (
 export const DataViz = (props: Props) => {
   const {
     id, enablePNGDownload, enableSVGDownload, jsonToDownload, rootStyles,
-    triggerGoogleAnalyticsEvent,
+    triggerGoogleAnalyticsEvent, triggerPNGDownload, triggerSVGDownload,
   } = props;
   const sizingNodeRef = useRef<HTMLDivElement | null>(null);
   const svgNodeRef = useRef<any>(null);
@@ -470,6 +472,16 @@ export const DataViz = (props: Props) => {
       Download SVG
     </DownloadImageButton>
   );
+
+  if (triggerPNGDownload) {
+    handleDownloadImage(FileFormat.PNG);
+    triggerPNGDownload(true);
+  }
+  if (triggerSVGDownload) {
+    handleDownloadImage(FileFormat.SVG);
+    triggerSVGDownload(true);
+  }
+
   let downloadDataButton: React.ReactElement<any> | null;
   if (jsonToDownload !== undefined) {
     const filename = props.chartTitle ? props.chartTitle + '.csv' : 'data.csv';
