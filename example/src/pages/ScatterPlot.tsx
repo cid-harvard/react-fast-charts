@@ -71,7 +71,7 @@ const codeAsString = `import DataViz, {
   vizType={VizType.ScatterPlot}
   data={data}
   axisLabels={{
-    bottom: 'Bottom Axis', left: 'Left Axis'
+    x: 'Bottom Axis', y: 'Left Axis'
   }}
 />
 `;
@@ -134,7 +134,7 @@ export default () => {
             id={'example-scatterplot'}
             vizType={VizType.ScatterPlot}
             data={data}
-            axisLabels={{bottom: 'Bottom Axis', left: 'Left Axis'}}
+            axisLabels={{x: 'Bottom Axis', y: 'Left Axis'}}
           />
         <div>
           <Code>

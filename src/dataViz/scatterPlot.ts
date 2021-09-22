@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import mean from 'lodash/mean';
 
 export interface Datum {
   label: string;
@@ -22,7 +23,7 @@ interface Input {
   tooltip: d3.Selection<any, unknown, null, undefined>;
   data: Datum[];
   size: Dimensions;
-  axisLabels?: {left?: string, bottom?: string};
+  axisLabels?: {x?: string, y?: string};
   axisMinMax?: {
     minX?: number,
     maxX?: number,
@@ -30,7 +31,8 @@ interface Input {
     maxY?: number,
   };
   showAverageLines?: boolean;
-  averageLineText?: {left?: string, bottom?: string};
+  averageLineText?: {x?: string, y?: string};
+  averageLineValue?: {x?: number, y?: number};
   quadrantLabels?: {I?: string, II?: string, III?: string, IV?: string};
   labelFont?: string;
 }
@@ -38,7 +40,7 @@ interface Input {
 export default (input: Input) => {
   const {
     svg, tooltip, data, size, axisLabels, axisMinMax, showAverageLines,
-    averageLineText, quadrantLabels, labelFont,
+    averageLineText, quadrantLabels, labelFont, averageLineValue,
   } = input;
 
   const margin = {top: 30, right: 30, bottom: 60, left: 60};
@@ -57,6 +59,9 @@ export default (input: Input) => {
 
   const allXValues = data.map(({x}) => x);
   const allYValues = data.map(({y}) => y);
+
+  const avgX = averageLineValue && averageLineValue.x !== undefined ? averageLineValue.x : mean(allXValues);
+  const avgY = averageLineValue && averageLineValue.y !== undefined ? averageLineValue.y : mean(allYValues);
 
   const rawMinX = axisMinMax && axisMinMax.minX !== undefined ? axisMinMax.minX : d3.min(allXValues);
   const rawMaxX = axisMinMax && axisMinMax.maxX !== undefined ? axisMinMax.maxX : d3.max(allXValues);
@@ -120,14 +125,14 @@ export default (input: Input) => {
     container.append('line')
       .attr('x1',xScale(minX))
       .attr('x2',xScale(maxX))
-      .attr('y1',yScale(maxY / 2) + 0.5)
-      .attr('y2',yScale(maxY / 2) + 0.5)
+      .attr('y1',yScale(avgY) + 0.5)
+      .attr('y2',yScale(avgY) + 0.5)
       .attr('stroke-width', '1px')
       .style('pointer-events', 'none')
       .attr('stroke', '#9e9e9e');
     container.append('line')
-      .attr('x1',xScale(maxX / 2) + 0.5)
-      .attr('x2',xScale(maxX / 2) + 0.5)
+      .attr('x1',xScale(avgX) + 0.5)
+      .attr('x2',xScale(avgX) + 0.5)
       .attr('y1',yScale(minY))
       .attr('y2',yScale(maxY))
       .attr('stroke-width', '1px')
@@ -136,7 +141,7 @@ export default (input: Input) => {
   }
 
   if (averageLineText) {
-    if (averageLineText.left) {
+    if (averageLineText.y) {
       container.append('text')
         .attr('x',xScale(minX) + 4)
         .attr('y',yScale(maxY / 2) + 12)
@@ -144,9 +149,9 @@ export default (input: Input) => {
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .style('font-size', '12px')
         .style('pointer-events', 'none')
-        .text(averageLineText.left);
+        .text(averageLineText.y);
     }
-    if (averageLineText.bottom) {
+    if (averageLineText.x) {
       container.append('text')
         .attr('x',xScale(maxX / 2) + 4)
         .attr('y',yScale(minY) - 6)
@@ -154,7 +159,7 @@ export default (input: Input) => {
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .style('font-size', '12px')
         .style('pointer-events', 'none')
-        .text(averageLineText.bottom);
+        .text(averageLineText.x);
 
     }
   }
@@ -294,7 +299,7 @@ export default (input: Input) => {
     .attr('transform', `translate(${width / 2 + margin.left}, ${height + margin.bottom + (margin.top / 2)})`)
       .style('text-anchor', 'middle')
       .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
-      .text(axisLabels && axisLabels.bottom ? axisLabels.bottom : '');
+      .text(axisLabels && axisLabels.x ? axisLabels.x : '');
 
   // append Y axis label
   svg
@@ -305,6 +310,6 @@ export default (input: Input) => {
       .attr('dy', '0.75em')
       .style('text-anchor', 'middle')
       .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
-      .text(axisLabels && axisLabels.left ? axisLabels.left : '');
+      .text(axisLabels && axisLabels.y ? axisLabels.y : '');
 
 };

@@ -117,8 +117,8 @@ ___
     - **onClick** *(optional)*: `() => void`
     - **highlighted** *(optional)*: `boolean`
 - **axisLabels** *(optional)*: `object`
-    - **left** *(optional)*: `string`
-    - **bottom** *(optional)*: `string`
+    - **x** *(optional)*: `string`
+    - **y** *(optional)*: `string`
 - **axisMinMax** *(optional)*: `object`
     - **minX** *(optional)*: `number`
     - **maxX** *(optional)*: `number`
@@ -126,8 +126,11 @@ ___
     - **maxY** *(optional)*: `number`
 - **showAverageLines** *(optional)*: `boolean`
 - **averageLineText** *(optional)*: `object`
-    - **left** *(optional)*: `string`
-    - **bottom** *(optional)*: `string`
+    - **x** *(optional)*: `string`
+    - **y** *(optional)*: `string`
+- **averageLineValue** *(optional)*: `object`
+    - **x** *(optional)*: `string`
+    - **y** *(optional)*: `string`
 - **quadrantLabels** *(optional)*: `object`
     - **I** *(optional)*: `string`
     - **II** *(optional)*: `string`

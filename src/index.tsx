@@ -166,7 +166,7 @@ type Props = BaseProps & (
   } | {
     vizType: VizType.ScatterPlot;
     data: ScatterPlotDatum[];
-    axisLabels?: {left?: string, bottom?: string};
+    axisLabels?: {x?: string, y?: string};
     axisMinMax?: {
       minX?: number,
       maxX?: number,
@@ -174,7 +174,8 @@ type Props = BaseProps & (
       maxY?: number,
     };
     showAverageLines?: boolean;
-    averageLineText?: {left?: string, bottom?: string};
+    averageLineText?: {x?: string, y?: string};
+    averageLineValue?: {x?: number, y?: number};
     quadrantLabels?: {I?: string, II?: string, III?: string, IV?: string};
   } |
   {
@@ -325,6 +326,7 @@ export const DataViz = (props: Props) => {
           axisLabels: props.axisLabels,
           axisMinMax: props.axisMinMax,
           showAverageLines: props.showAverageLines,
+          averageLineValue: props.averageLineValue,
           averageLineText: props.averageLineText,
           quadrantLabels: props.quadrantLabels,
         });
