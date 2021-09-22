@@ -144,7 +144,7 @@ export default (input: Input) => {
     if (averageLineText.y) {
       container.append('text')
         .attr('x',xScale(minX) + 4)
-        .attr('y',yScale(maxY / 2) + 12)
+        .attr('y',yScale(avgY) + 12)
         .style('opacity', 0.8)
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")
         .style('font-size', '12px')
@@ -153,7 +153,7 @@ export default (input: Input) => {
     }
     if (averageLineText.x) {
       container.append('text')
-        .attr('x',xScale(maxX / 2) + 4)
+        .attr('x',xScale(avgX) + 4)
         .attr('y',yScale(minY) - 6)
         .style('opacity', 0.8)
         .style('font-family', labelFont ? labelFont : "'Source Sans Pro',sans-serif")

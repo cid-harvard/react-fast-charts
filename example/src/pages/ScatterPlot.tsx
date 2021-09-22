@@ -135,6 +135,7 @@ export default () => {
             vizType={VizType.ScatterPlot}
             data={data}
             axisLabels={{x: 'Bottom Axis', y: 'Left Axis'}}
+            showAverageLines={true}
           />
         <div>
           <Code>
