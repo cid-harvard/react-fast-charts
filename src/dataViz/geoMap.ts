@@ -55,8 +55,8 @@ export default (input: Input) => {
   const rawMinValue = d3.min(allValues);
   const rawMaxValue = d3.max(allValues);
 
-  const minValue = rawMinValue ? Math.floor(rawMinValue) : 0;
-  const maxValue = rawMaxValue ? Math.ceil(rawMaxValue) : 0;
+  const minValue = rawMinValue ? rawMinValue : 0;
+  const maxValue = rawMaxValue ? rawMaxValue : 0;
 
   const colorScale = d3.scaleLinear<string>().domain([minValue, maxValue]).range([minColor, maxColor]);
 

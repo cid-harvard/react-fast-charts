@@ -1,6 +1,6 @@
 {
   "name": "react-fast-charts",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Quickly create a variety of data visualizations in React using D3.",
   "author": "Kyle Soeltz <kyle@soeltz.com> (https://soeltz.com)",
   "license": "MIT",
