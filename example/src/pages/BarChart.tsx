@@ -186,6 +186,9 @@ export default () => {
             vizType={VizType.BarChart}
             data={data}
             axisLabels={{left: 'Value', bottom: 'Year'}}
+            enablePNGDownload={true}
+            enableSVGDownload={true}
+            jsonToDownload={[{test: 'hello world'}]}
           />
         <div>
           <Code>

@@ -457,12 +457,12 @@ export const DataViz = (props: Props) => {
       triggerGoogleAnalyticsEvent(id, 'download-' + fileFormat, title);
     }
   };
-
+  const downloadImageIcon = typeof (DownloadSVGURL) === 'object' ? (DownloadSVGURL as any).default : DownloadSVGURL;
   const downloadPNGButton = enablePNGDownload !== true ? null : (
     <DownloadImageButton
       onClick={() => handleDownloadImage(FileFormat.PNG)}
     >
-      <SvgIcon src={DownloadSVGURL} alt={'Download PNG'} />
+      <SvgIcon src={downloadImageIcon} alt={'Download PNG'} />
       Download PNG
     </DownloadImageButton>
   );
@@ -470,7 +470,7 @@ export const DataViz = (props: Props) => {
     <DownloadImageButton
       onClick={() => handleDownloadImage(FileFormat.SVG)}
     >
-      <SvgIcon src={DownloadSVGURL} alt={'Download SVG'} />
+      <SvgIcon src={downloadImageIcon} alt={'Download SVG'} />
       Download SVG
     </DownloadImageButton>
   );
@@ -492,13 +492,14 @@ export const DataViz = (props: Props) => {
         triggerGoogleAnalyticsEvent(id, 'download-csv', props.chartTitle);
       }
     };
+    const downloadDataIcon = typeof (DataSVGURL) === 'object' ? (DataSVGURL as any).default : DataSVGURL;
     downloadDataButton = (
       <DownloadDataButton
         data={jsonToDownload}
         filename={filename}
         onClick={onClick}
       >
-        <SvgIcon src={DataSVGURL} alt={'Download Data'} />
+        <SvgIcon src={downloadDataIcon} alt={'Download Data'} />
         Download Data
       </DownloadDataButton>
     );
