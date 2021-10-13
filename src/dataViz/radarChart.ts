@@ -209,11 +209,19 @@ export default ({svg, data, tooltip, options, labelFont}: Input) => {
         .style('stroke-width', '2px')
         .style('stroke', config.color(series)).style('fill-opacity', .9)
         .on('mousemove', p => {
+          let content = `<strong>${p.label}</strong>: ${p.value}`;
+          if (!p.value) {
+            d.forEach(dd => {
+              if (!dd.value && dd.label !== p.label) {
+                content += `<br /><strong>${dd.label}</strong>: ${dd.value}`;
+              }
+            })
+          }
           tooltip
             .style('left', d3.event.pageX + 'px')
             .style('top', d3.event.pageY + 'px')
             .style('display', 'block')
-            .html(`<strong>${p.label}</strong>: ${p.value}`);
+            .html(content);
         })
         .on('mouseout', function(){ tooltip.style('display', 'none');});
 

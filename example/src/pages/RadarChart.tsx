@@ -15,11 +15,11 @@ const data: RadarChartDatum[][] = [
   [
     {
       label: 'Point 1',
-      value: 6,
+      value: 0,
     },
     {
       label: 'Point 2',
-      value: 4,
+      value: 0,
     },
     {
       label: 'Point 3',
