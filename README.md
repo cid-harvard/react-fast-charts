@@ -223,8 +223,10 @@ ___
 - **data**: `ExtendedFeature<any, GeoJsonCustomProperties>`: This is a standard GeoJson object but the `properties` of each feature should include the following props:
     - **percent**: `number`
     - **tooltipContent** *(optional)*: `string`
+    - **void** *(optional)*: `boolean`
 - **minColor**: `string`
 - **maxColor**: `string`
+- **voidColor** *(optional)*: `string`
 
 <a name="viztypelinechart"/>
 

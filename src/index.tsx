@@ -232,6 +232,7 @@ type Props = BaseProps & (
     data: ExtendedFeature<any, GeoJsonCustomProperties>;
     minColor: string;
     maxColor: string;
+    voidColor?: string;
   }|
   {
     vizType: VizType.LineChart;
@@ -361,7 +362,7 @@ export const DataViz = (props: Props) => {
         createGeoMap({
           svg, tooltip, data: props.data, size: {
             width: sizingNode.clientWidth, height: sizingNode.clientHeight,
-          }, minColor: props.minColor, maxColor: props.maxColor,
+          }, minColor: props.minColor, maxColor: props.maxColor, voidColor: props.voidColor,
         });
       } else if (props.vizType === VizType.ClusterBarChart) {
         createClusterBarChart({

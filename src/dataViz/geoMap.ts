@@ -9,6 +9,7 @@ interface Dimensions {
 export interface GeoJsonCustomProperties {
   percent: number;
   tooltipContent?: string;
+  void?: boolean;
 }
 
 interface Input {
@@ -18,10 +19,11 @@ interface Input {
   size: Dimensions;
   minColor: string;
   maxColor: string;
+  voidColor?: string;
 }
 
 export default (input: Input) => {
-  const { svg, data, size, tooltip, minColor, maxColor } = input;
+  const { svg, data, size, tooltip, minColor, maxColor, voidColor } = input;
 
   const margin = {top: 30, right: 30, bottom: 30, left: 30};
   const width = size.width - margin.left - margin.right;
@@ -75,7 +77,17 @@ export default (input: Input) => {
      .append('path')
      .attr('d', path)
      .attr('stroke-width',1)
-     .attr('stroke',baseColor)
+     .attr('stroke', (d: any) => {
+       if (!d.properties.void) {
+        return baseColor;
+       } else {
+         if (voidColor) {
+           return voidColor;
+         } else {
+           return 'lightgray';
+         }
+       }
+      })
      .attr('class','pathClass')
      .on('mousemove', function(d: any) {
        if (d.properties.tooltipContent) {
@@ -90,6 +102,8 @@ export default (input: Input) => {
         tooltip.style('display', 'none');
       });
 
-  container.selectAll('.pathClass').attr('fill', (d: any) => colorScale(d.properties.percent));
+  container.selectAll('.pathClass').attr('fill', (d: any) =>
+    d.properties.void
+      ? (voidColor ? voidColor : 'lightgray') : colorScale(d.properties.percent));
 
 };
