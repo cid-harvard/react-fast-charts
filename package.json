@@ -1,6 +1,6 @@
 {
   "name": "react-fast-charts",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Quickly create a variety of data visualizations in React using D3.",
   "author": "Kyle Soeltz <kyle@soeltz.com> (https://soeltz.com)",
   "license": "MIT",
@@ -24,11 +24,11 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "lodash": "^4.0.0",
-    "polished": "^3.0.0",
-    "react-csv": "^2.0.0",
-    "styled-components": "^5.0.0"
+    "react": ">=16",
+    "lodash": ">=4.0.0",
+    "polished": ">=3.0.0",
+    "react-csv": ">=2.0.0",
+    "styled-components": ">=5.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
